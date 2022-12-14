@@ -4,6 +4,8 @@ from csv import *
 import numpy
 from datetime import datetime
 import os
+import threading
+import webbrowser
 
 #global variables
 now = datetime.now()
@@ -19,9 +21,6 @@ interface = Tk()
 interface.geometry("700x600")
 interface.title("LifeSpan Trigger Recorder")
 interface['background'] = '#EDEDED'
-
-#Activate Recorder
-os.system("cd Desktop \CyKit-master\Py3; C:\Users\Oliver\AppData\Local\Programs\Python37\python.exe .\CyKIT.py 127.0.0.1 54123 6")
 
 #*Functions*
 
@@ -40,7 +39,7 @@ def Add(trigger):
     list = [trigger, current_time]
     total_data.append(list)
     Color("#7CFC00")
-    time.sleep(10)
+    time.sleep(0.5)
     Color("#fb3b1e")
 
 def Color(color):
@@ -114,5 +113,11 @@ CustomTriggerButton.place(relx=0.67, rely=0.75, anchor=CENTER)
 SaveDataButton = Button(interface, text="Save Data", width=12, height=3, command=SaveData)
 SaveDataButton.place(relx=0.5, rely=0.85, anchor=CENTER)
 
+def ActivateRecorder():
+    webbrowser.open('file://' + os.path.realpath(r"C:\Users\Oliver\Desktop\CyKit-master-Copy\Web\CyKIT.html"))
+    os.system(r"C:\Users\Oliver\AppData\Local\Programs\Python\Python37\python.exe .\CyKIT.py 127.0.0.1 54123 6")
+
 #UI Loop
+interface.after(2000, threading.Thread(target=ActivateRecorder).start)
 interface.mainloop()
+
