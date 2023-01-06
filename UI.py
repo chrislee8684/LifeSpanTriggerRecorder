@@ -121,3 +121,5 @@ def ActivateRecorder():
 interface.after(2000, threading.Thread(target=ActivateRecorder).start)
 interface.mainloop()
 
+
+
